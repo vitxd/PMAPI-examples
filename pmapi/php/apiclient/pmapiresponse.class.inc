@@ -38,11 +38,10 @@ class PMAPIResponse
 	protected $error = null;		// error message
 	protected $headers = '';		// raw header data - currently unused
 	protected $isError = null;		// bool indicating error state
-	protected $offset = null;		// offset of first returned result from first match
+	protected $next = null;			// key of the first item in the next page of results
 	protected $rawResponse = '';	// raw data returned from peer
 	protected $response = null;		// interpreted JSON data (nested arrays)
 	protected $status = null;		// status code
-	protected $total = null;		// total number of matching results
 	protected $verb = null;			// request verb (get, head, put, ...)
 
 
@@ -62,10 +61,9 @@ class PMAPIResponse
 			case 'count':
 			case 'error':
 			case 'isError':
-			case 'offset':
+			case 'next':
 			case 'response':
 			case 'status':
-			case 'total':
 			case 'verb':
 				return $this->$what;
 
@@ -104,16 +102,19 @@ class PMAPIResponse
 		switch($this->response['status'])
 		{
 			case 'ok':
-				foreach(array('total', 'count', 'offset', 'data') as $required)
+				foreach(array('count', 'data') as $required)
 					if(!isset($resp[$required]))
 						throw new PMAPIInvalidResponseException("missing field [response][$required]");
+
+				if($this->verb == 'get')
+					if(!array_key_exists('next', $resp))	// resp[next] can be null
+						throw new PMAPIInvalidResponseException("missing field [response][next]");
 
 				if(!is_array($resp['data']))
 					throw new PMAPIInvalidResponseException("[response][data] is not an array");
 
-				$this->total = (int) $resp['total'];
 				$this->count = (int) $resp['count'];
-				$this->offset = (int) $resp['offset'];
+				$this->next = $resp['next'];
 				$this->isError = false;
 				break;
 
