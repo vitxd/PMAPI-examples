@@ -1,6 +1,6 @@
 ## About the Node.js PMAPI client library
 
-This is an npm package. Install it with Node.js to integrate with the Sign-Up.to Permission Marketing API quickly and efficiently.  More info at https://dev.sign-up.to/.
+Integrate with the Sign-Up.to Permission Marketing API quickly and efficiently.  More info at https://dev.sign-up.to/documentation/reference/latest/examples/client-libraries/.
 
 
 ## Installation
@@ -13,7 +13,7 @@ This is an npm package. Install it with Node.js to integrate with the Sign-Up.to
 var pmapi				= require('pmapi-client'),
 	pmapiOptions		= {
 		server				: 'xxx.xxx.xx',		// Optional - the domain for PMAPI requests
-		version				: 1,			cd ..	// Optional - the major version of PMAPI
+		version				: 1,				// Optional - the major version of PMAPI
 		debugMode			: true				// Optional - log requests for debugging
 	},
 	requestArguments	= {
