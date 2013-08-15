@@ -58,7 +58,7 @@ class PMAPIEndpoint
 			throw new PMAPIInvalidValueException('endpoint', $endpoint);
 
 		$this->Auth = $Auth;
-		$this->server = $server;
+		$this->server = rtrim($server, '/');
 		$this->version = (int) $version;
 		$this->endpoint = $endpoint;
 		$this->debugMode = (bool) $debugMode;
@@ -92,7 +92,10 @@ class PMAPIEndpoint
 		{
 			case 'post':
 				$curl_opts[CURLOPT_POST] = true;
-				$curl_opts[CURLOPT_POSTFIELDS] = (array) $args;
+				if(!empty($args))
+				{
+					$curl_opts[CURLOPT_POSTFIELDS] = (array) $args;
+				}
 				break;
 
 			case 'put':
@@ -115,6 +118,7 @@ class PMAPIEndpoint
 				break;
 		}
 
+		$headers_ = array();
 		foreach($headers as $k => $v)
 			$headers_[] = strtoupper(str_replace('X_SUT', 'HTTP_X_SUT', str_replace('_', '-', $k))) . ": $v";
 
