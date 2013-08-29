@@ -94,19 +94,20 @@ class PMAPIEndpoint
 				$curl_opts[CURLOPT_POST] = true;
 				if(!empty($args))
 				{
-					$curl_opts[CURLOPT_POSTFIELDS] = (array) $args;
+					$curl_opts[CURLOPT_POSTFIELDS] = json_encode($args);
+					$headers['Content-Type'] = 'application/json';
 				}
 				break;
 
 			case 'put':
 				$fp = fopen('php://temp', 'w');
-				fwrite($fp, http_build_query((array) $args));
+				fwrite($fp, json_encode((array) $args));
 				$len = ftell($fp);
 				fseek($fp, 0);
 				$curl_opts[CURLOPT_PUT] = 1;
 				$curl_opts[CURLOPT_INFILE] = $fp;
 				$curl_opts[CURLOPT_INFILESIZE] = $len;
-				$headers['Content-Type'] = 'application/x-www-form-urlencoded';
+				$headers['Content-Type'] = 'application/json';
 				break;
 
 			case 'delete':
