@@ -89,6 +89,17 @@ module.exports.PMAPIInvalidValueException				= function(field, value){
 	Exception.prototype = new PMAPIException();
 	return new Exception(field, value);
 };
+module.exports.PMAPIInvalidArgumentException			= function(field, value){
+	"use strict";
+
+	function Exception(field, value){
+		this.name = "PMAPIInvalidArgumentException";
+		this.message = 'Invalid argument "' + field + '" and value "' + value + '"';
+	}
+
+	Exception.prototype = new PMAPIException();
+	return new Exception(field, value);
+};
 module.exports.PMAPIInvalidCallbackException			= function(callback){
 	"use strict";
 

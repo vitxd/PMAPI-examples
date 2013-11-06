@@ -36,7 +36,7 @@ describe('[Response]', function(){
 	"use strict";
 
 	var _		 		= require('underscore'),
-		aVerbs			= ['GET', 'HEAD', 'POST', 'PUT', 'DELETE'], //['PUT'], //
+		aVerbs			= ['GET', 'HEAD', 'POST', 'PUT', 'DELETE'],
 		validateBase	= function(Response){
 			var aValidKeys = ['count', 'code', 'subcode', 'headers', 'message', 'response', 'status', 'next', 'verb', 'data'];
 
@@ -190,6 +190,23 @@ describe('[Response]', function(){
 
 				_.each(aVerbs, function(verb){
 					describe('[' + verb + ']', function(){
+						it('must fail with invalid arguments', function(done){
+							try{
+								Request
+									.endpoint(config.endpoint.path)
+									.complete(function(PMAPIResponse){
+										return;
+									})
+									.doRequest(verb, config.endpoint.invalidArgs);
+
+								throw new Error('Bad arguments must error');
+							} catch(e){
+								e.name
+									.should.equal('PMAPIInvalidArgumentException', e.message);
+
+								done();
+							}
+						});
 						it('must issue and handle a request/response', function(done){
 							Request
 								.endpoint(config.endpoint.path)
@@ -216,6 +233,23 @@ describe('[Response]', function(){
 
 		_.each(aVerbs, function(verb){
 			describe('[' + verb + ']', function(){
+				it('must fail with invalid arguments', function(done){
+					try{
+						Request
+							.endpoint(config.endpoint.path)
+							.complete(function(PMAPIResponse){
+								return;
+							})
+							.doRequest(verb, config.endpoint.invalidArgs);
+
+						throw new Error('Bad arguments must error');
+					} catch(e){
+						e.name
+							.should.equal('PMAPIInvalidArgumentException', e.message);
+
+						done();
+					}
+				});
 				it('must issue and handle a request/response', function(done){
 					Request
 						.endpoint(config.endpoint.path)

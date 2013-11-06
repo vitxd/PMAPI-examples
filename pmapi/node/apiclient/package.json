@@ -1,6 +1,6 @@
 {
   "name": "pmapi-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A client library for integrating with the Sign-Up.to Permission Marketing API quickly and efficiently.",
   "main": "index.js",
   "scripts": {

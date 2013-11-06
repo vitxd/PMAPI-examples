@@ -55,3 +55,11 @@ var pmapi				= require('pmapi-client'),
 	})
 	.GET(requestArguments, requestOptions);
 ```
+
+## Changelog
+
+#### v0.1.1
+Fixed minor issue where the key of an argument passed through to a request could be empty, for example: .GET({ '' : 123 }).
+
+>* Added new "PMAPIInvalidArgumentException".
+>* Updated unit tests.

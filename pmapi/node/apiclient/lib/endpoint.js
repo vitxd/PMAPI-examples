@@ -106,6 +106,16 @@ module.exports		= function(Auth, oOptions){
 				throw new exception.PMAPIInvalidCallbackException('success');
 			}
 
+			if(_.isObject(oArgs)){
+				_.each(oArgs, function(val, key){
+					if(_.isString(key) && key.length){
+						return;
+					}
+
+					throw new exception.PMAPIInvalidArgumentException(key, val);
+				});
+			}
+
 			var request			= require('request'),
 				PMAPIResponse	= new Response(sVerb),
 				Endpoint		= this,

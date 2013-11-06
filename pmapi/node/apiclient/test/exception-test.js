@@ -44,6 +44,7 @@ describe('[Exception]', function(){
 				'PMAPIInvalidResponseException',
 				'PMAPIUnsupportedMethodException',
 				'PMAPIInvalidValueException',
+				'PMAPIRuntimeEnvironmentException',
 				'PMAPIInvalidCallbackException',
 				'PMAPINoSuchFieldException'
 			]);
