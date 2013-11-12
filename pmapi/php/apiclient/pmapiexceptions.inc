@@ -77,3 +77,12 @@ class PMAPINoSuchFieldException extends PMAPIException
 	}
 }
 
+
+class PMAPIInvalidArgumentException extends PMAPIException
+{
+    public function __construct($key, $val)
+    {
+        parent::__construct("Invalid argument '$key' and value '$val'");
+    }
+}
+

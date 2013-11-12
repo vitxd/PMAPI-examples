@@ -78,6 +78,13 @@ class PMAPIEndpoint
 
 	protected function doRequest($verb, array $args = null)
 	{
+        foreach($args as $key => $val)
+        {
+            if(!strlen($key))
+                throw new PMAPIInvalidArgumentException($key, $val);
+        }
+
+
 		$Response = new PMAPIResponse($verb);
 
 		$url = self::API_SCHEME . "://{$this->server}/v{$this->version}/{$this->endpoint}";
