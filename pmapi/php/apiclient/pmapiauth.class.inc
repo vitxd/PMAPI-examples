@@ -34,7 +34,7 @@ require_once('pmapiexceptions.inc');
 
 abstract class PMAPIAuth
 {
-	const DATE_RFC1123 = '%a, %d %h %Y %H:%M:%S';
+	const DATE_RFC1123 = '%a, %d %b %Y %H:%M:%S'; // %h (alias of %b) does not work on win32.
 
 
 	abstract public function getHeaders($verb, $version, $endpoint);
