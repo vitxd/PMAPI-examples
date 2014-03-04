@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5D8B5A60-93BE-4F2A-891F-89BA89A398F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SuT.PMAPI</RootNamespace>
+    <AssemblyName>PMAPIsharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RestSharp, Version=104.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.104.3.3\lib\net35\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authenticators\TokenAuthenticator.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="PMAPIClient.cs" />
+    <Compile Include="Requests\Endpoints\AccountRequest.cs" />
+    <Compile Include="Requests\Endpoints\SubscriptionAutomationRequest.cs" />
+    <Compile Include="Requests\Endpoints\OpenAutomationRequest.cs" />
+    <Compile Include="Requests\Endpoints\DateAutomationRequest.cs" />
+    <Compile Include="Requests\Endpoints\SMSAutomationRequest.cs" />
+    <Compile Include="Requests\Endpoints\EmailMessageLinkRequest.cs" />
+    <Compile Include="Requests\Endpoints\EmailLinkClickRequest.cs" />
+    <Compile Include="Requests\Endpoints\ClickAutomationRequest.cs" />
+    <Compile Include="Requests\Endpoints\SplitTestRequest.cs" />
+    <Compile Include="Requests\Endpoints\SMSRequest.cs" />
+    <Compile Include="Requests\Endpoints\SMSMessageRequest.cs" />
+    <Compile Include="Requests\Endpoints\BounceRequest.cs" />
+    <Compile Include="Requests\Endpoints\ContactRequest.cs" />
+    <Compile Include="Requests\Endpoints\DoNotContactRequest.cs" />
+    <Compile Include="Requests\Endpoints\AutomationRequest.cs" />
+    <Compile Include="Requests\Endpoints\SubscriberProfileDataRequest.cs" />
+    <Compile Include="Requests\Endpoints\SubscriberProfileFieldRequest.cs" />
+    <Compile Include="Requests\Endpoints\FolderRequest.cs" />
+    <Compile Include="Requests\Endpoints\FormRequest.cs" />
+    <Compile Include="Requests\Endpoints\MessageRequest.cs" />
+    <Compile Include="Requests\Endpoints\EmailMessageRequest.cs" />
+    <Compile Include="Requests\Endpoints\EmailOpenRequest.cs" />
+    <Compile Include="Requests\Endpoints\SubscriptionRequest.cs" />
+    <Compile Include="Requests\Endpoints\SMSDestinationRequest.cs" />
+    <Compile Include="Requests\Endpoints\PreviewRequest.cs" />
+    <Compile Include="Requests\Endpoints\UserRequest.cs" />
+    <Compile Include="Requests\Endpoints\ImportRequest.cs" />
+    <Compile Include="Requests\Endpoints\TaskRequest.cs" />
+    <Compile Include="PMAPITokenGenerator.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\Endpoints\SubscriptionAutomationResponse.cs" />
+    <Compile Include="Responses\Endpoints\OpenAutomationResponse.cs" />
+    <Compile Include="Responses\Endpoints\DateAutomationResponse.cs" />
+    <Compile Include="Responses\Endpoints\SMSAutomationResponse.cs" />
+    <Compile Include="Responses\Endpoints\ClickAutomationResponse.cs" />
+    <Compile Include="Responses\Endpoints\EmailMessageLinkResponse.cs" />
+    <Compile Include="Responses\Endpoints\EmailLinkClickResponse.cs" />
+    <Compile Include="Responses\Endpoints\PreviewResponse.cs" />
+    <Compile Include="Responses\Endpoints\EmailOpenResponse.cs" />
+    <Compile Include="Responses\Endpoints\SplitTestResponse.cs" />
+    <Compile Include="Responses\Endpoints\SMSResponse.cs" />
+    <Compile Include="Responses\Endpoints\SMSDestinationResponse.cs" />
+    <Compile Include="Responses\Endpoints\SMSMessageResponse.cs" />
+    <Compile Include="Responses\Endpoints\BounceResponse.cs" />
+    <Compile Include="Responses\Endpoints\AccountResponse.cs" />
+    <Compile Include="Responses\Endpoints\DoNotContactResponse.cs" />
+    <Compile Include="Responses\Endpoints\ContactResponse.cs" />
+    <Compile Include="Responses\Endpoints\AutomationResponse.cs" />
+    <Compile Include="Responses\Endpoints\SubscriberProfileDataResponse.cs" />
+    <Compile Include="Responses\Endpoints\SubscriberProfileFieldResponse.cs" />
+    <Compile Include="Responses\Endpoints\FolderResponse.cs" />
+    <Compile Include="Responses\Endpoints\FormResponse.cs" />
+    <Compile Include="Responses\Endpoints\MessageResponse.cs" />
+    <Compile Include="Responses\Endpoints\EmailMessageResponse.cs" />
+    <Compile Include="Responses\Endpoints\SubscriptionResponse.cs" />
+    <Compile Include="Responses\Endpoints\UserResponse.cs" />
+    <Compile Include="Responses\Endpoints\ImportResponse.cs" />
+    <Compile Include="Responses\Endpoints\TaskResponse.cs" />
+    <Compile Include="Responses\PMAPIResponseErrorEnvelope.cs" />
+    <Compile Include="Responses\PMAPIResponseError.cs" />
+    <Compile Include="Responses\PMAPIResponse.cs" />
+    <Compile Include="Responses\PMAPIResponseSuccess.cs" />
+    <Compile Include="Responses\PMAPIResponseEnvelope.cs" />
+    <Compile Include="Responses\PMAPIResponseSuccessEnvelope.cs" />
+    <Compile Include="SortFields.cs" />
+    <Compile Include="Requests\Endpoints\SubscriberRequest.cs" />
+    <Compile Include="Requests\Endpoints\ListRequest.cs" />
+    <Compile Include="Responses\Endpoints\SubscriberResponse.cs" />
+    <Compile Include="Requests\Request.cs" />
+    <Compile Include="Responses\Endpoints\ListResponse.cs" />
+    <Compile Include="SuTToken.cs" />
+    <Compile Include="Responses\EndpointResponse.cs" />
+    <Compile Include="Types\v1\Token.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
