@@ -60,7 +60,7 @@ define('HASH', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); // API access hash
 $request = new PMAPIRequest(new PMAPIAuthHash(UID, CID, HASH));
 
 // Prepare a new message to be created in the account.
-// Note: 'fromname' must match a pre-configured email address in your account on the Sign-Up.to platform
+// Note: 'fromemail' must match a pre-configured email address in your account on the Sign-Up.to platform
 $args = array(
     'text' => 'Hello, this is an example plain text email. Goodbye.',
     'subject' => 'Example Subject',
