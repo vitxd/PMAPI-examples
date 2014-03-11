@@ -129,8 +129,7 @@ printf("profile field: %s (id:%u)\n", $response->data[0]['columnheader'], $respo
 $args = array(
     'subscriber_id' => $subscriber_id,
     'subscriberprofilefield_id' => $profilefield_id,
-    'type' => 'string',
-    'value' => date('H:m:s d-m-Y'),
+    'value' => date('Y-m-d H:i:s'),
 );
 $response = $request->subscriberProfileData->put($args);
 

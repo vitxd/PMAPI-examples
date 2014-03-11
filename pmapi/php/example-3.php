@@ -45,7 +45,7 @@
 require_once('apiclient/pmapirequest.class.inc');
 require_once('apiclient/pmapiauthhash.class.inc');
 
-// Insert your own company ID, user ID and API hash below 
+// Insert your own company ID, user ID and API hash below
 //	access credentials are available in your Sign-Up.to account,
 //	under the Account section ('cog'), in the 'API access' page.
 
@@ -60,9 +60,11 @@ define('HASH', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); // API access hash
 $request = new PMAPIRequest(new PMAPIAuthHash(UID, CID, HASH));
 
 // Prepare a new message to be created in the account.
+// Note: 'fromname' must match a pre-configured email address in your account on the Sign-Up.to platform
 $args = array(
     'text' => 'Hello, this is an example plain text email. Goodbye.',
     'subject' => 'Example Subject',
+    'fromemail' => 'johnsmith@example.com',
     'fromname' => 'Mr John Smith',
     'name' => 'Example Campaign Name',
     'replyemail' => 'noreply@example.com',
