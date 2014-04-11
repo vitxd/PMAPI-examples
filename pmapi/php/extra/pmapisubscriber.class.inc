@@ -1,7 +1,7 @@
 <?php
 /**
- *  subscriber.class.inc:
- *
+ *  pmapisubscriber.class.inc:
+ * 
  *  Please note: This class is intended for light use only and will be inefficient if used to
  *  bulk update/create subscribers.
  *
