@@ -47,6 +47,7 @@ class PMAPISubscriber
         'daybirth'    => null,
         'email'       => null,
         'firstname'   => null,
+        'gender'      => null,
         'housenumber' => null,
         'lastname'    => null,
         'list_id'     => null,
