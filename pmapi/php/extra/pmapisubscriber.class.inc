@@ -1,7 +1,7 @@
 <?php
 /**
  *  pmapisubscriber.class.inc:
- * 
+ *
  *  Please note: This class is intended for light use only and will be inefficient if used to
  *  bulk update/create subscribers.
  *
@@ -99,10 +99,10 @@ class PMAPISubscriber
      */
     public function addToList($listId)
     {
-		if (!$this->id)
-		{
-			throw new PMAPISubscriberNotSavedException();
-		}
+        if (!$this->id)
+        {
+            throw new PMAPISubscriberNotSavedException();
+        }
 
         $response = $this->request->subscription->post(array(
             'subscriber_id' => $this->id,
@@ -132,10 +132,10 @@ class PMAPISubscriber
      */
     public function deleteFromList($listId)
     {
-		if (!$this->id)
-		{
-			throw new PMAPISubscriberNotSavedException();
-		}
+        if (!$this->id)
+        {
+            throw new PMAPISubscriberNotSavedException();
+        }
 
         // Get the subscription id
         $response = $this->makeGetRequest('subscription', array(
@@ -215,15 +215,22 @@ class PMAPISubscriber
         {
             if ($response = $this->request->subscriberProfileField->get($data))
             {
-                foreach ($response->data as $item)
+                if (isset($response->data) && is_array($response->data))
                 {
-                    $this->subscriberProfileFields[$item['columnheader']] = $item['id'];
-                    $this->subscriberProfileData[$item['columnheader']]   = null;
-                }
+                    foreach ($response->data as $item)
+                    {
+                        $this->subscriberProfileFields[$item['columnheader']] = $item['id'];
+                        $this->subscriberProfileData[$item['columnheader']]   = null;
+                    }
 
-                if ($response->next)
-                {
-                    $data['start'] = $response->next;
+                    if ($response->next)
+                    {
+                        $data['start'] = $response->next;
+                    }
+                    else
+                    {
+                        $data = false;
+                    }
                 }
                 else
                 {
@@ -256,9 +263,9 @@ class PMAPISubscriber
 
                 $this->subscriberProfileData[$columnHeader] = $response->data[0]['value'];
             }
-            catch(PMAPISubscriberRecordDoesNotExist $e)
+            catch (PMAPISubscriberRecordDoesNotExistException $e)
             {
-				// Records will not exist unless they have been set. 
+                // Records will not exist unless they have been set.
             }
         }
     }
