@@ -117,7 +117,8 @@ namespace PMAPIsharpExample
             while (apiResponse.Data.response.next != null)
             { 
                 request.start = apiResponse.Data.response.next.ToString();
-                DisplayFolderItems(request.get());
+                apiResponse = request.get();
+                DisplayFolderItems(apiResponse);
             }
         }
 
