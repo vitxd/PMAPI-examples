@@ -49,7 +49,8 @@ namespace SuT.PMAPI.Types.v1
         private string endpoint;
         public string start;
         protected int maxCount = 200;
-        private RestRequest request = new RestRequest();
+        private RestRequest request;
+        const string identifier = "C# library v0.1";
 
         private uint? _count;
         public uint? count
@@ -95,12 +96,17 @@ namespace SuT.PMAPI.Types.v1
             client = c;
             endpoint = endpointName;
 
+            cleanRESTRequest();
+        }
+
+        protected void cleanRESTRequest()
+        {
+            // This method sets up a fresh REST request. This is to enforce that
+            // the REST request object is new and that we don't end up accidentally
+            // setting parameters by mistake when multiple requests are made.
+            request = new RestRequest();
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            // String identifier = ConfigurationManager.AppSettings["Identifier"];
-            string identifier = "C# library v0.1"; // FIXME 
-
             request.AddHeader("Library", identifier);
             request.Resource = getResource();
         }
@@ -142,6 +148,8 @@ namespace SuT.PMAPI.Types.v1
 
         private void setupDefaultRequest<CanVerbAttribute, MandatoryVerbAttribute, MandatoryVerbMultipleAttribute>(RestSharp.Method method)       // FIXME - choose better name for this method
         {
+            cleanRESTRequest();
+
             request.Method = method;
 
             // Get the type of the class and it's properties
@@ -161,7 +169,7 @@ namespace SuT.PMAPI.Types.v1
                 {
                     mandatoryMultiples.Add(propertyName);
                 }
-            
+
                 if (Attribute.IsDefined(property, typeof(CanVerbAttribute)))
                 {
                     // If it's set, then add it to the request
@@ -176,7 +184,7 @@ namespace SuT.PMAPI.Types.v1
                     // A mandatory property is not set, throw an exception.
                     throw new PMAPIRequestMissingPropertyException(propertyName);
                 }
-                
+
                 if (!Attribute.IsDefined(property, typeof(CanVerbAttribute)))
                 {
                     // This property should not be set. To avoid confusion, we will make sure that
