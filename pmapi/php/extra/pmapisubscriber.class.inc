@@ -63,6 +63,7 @@ class PMAPISubscriber
     private $subscriberProfileFields = array();
     private $modifiedFields = array();
 
+    private $subscriptions;
 
     public function __construct(PMAPIRequest $request, $id = null, $email = null, $msisdn = null)
     {
@@ -105,6 +106,8 @@ class PMAPISubscriber
             throw new PMAPISubscriberNotSavedException();
         }
 
+        if(in_array($listId, $this->getSubscriptions())) return true;
+
         $response = $this->request->subscription->post(array(
             'subscriber_id' => $this->id,
             'list_id'       => $listId
@@ -120,6 +123,7 @@ class PMAPISubscriber
             throw new PMAPISubscriberSubscriptionException($response->error);
         }
 
+        $this->addSubscription($listId);
         return true;
     }
 
@@ -138,6 +142,8 @@ class PMAPISubscriber
             throw new PMAPISubscriberNotSavedException();
         }
 
+    if(in_array($listId, $this->getSubscriptions()))
+    {
         // Get the subscription id
         $response = $this->makeGetRequest('subscription', array(
             'subscriber_id' => $this->id,
@@ -154,6 +160,14 @@ class PMAPISubscriber
         {
             throw new PMAPISubscriberUnableToDeleteListException($response->error);
         }
+
+        $lists = array();
+        foreach($this->getSubscriptions() as $list_id)
+        {
+            if($list_id != $listId) $lists[] = $list_id;
+        }
+        $this->setSubscriptions($lists);
+    }
 
         return true;
     }
@@ -370,6 +384,46 @@ class PMAPISubscriber
         return true;
     }
 
+    public function getSubscriptions()
+    {
+        if($this->subscriptions === null)
+        {
+            if(!$this->id)
+            {
+                return array();
+            }
+
+            $response = $this->request->subscription->get(array(
+                'subscriber_id' => $this->id
+            ));
+
+            if($response->isError)
+            {
+                throw new PMAPISubscriberSubscriptionException($response->error);
+            }
+
+            foreach($response->data as $list)
+            {
+                $this->addSubscription($list['list_id']);
+            }
+
+        }
+
+        return $this->subscriptions;
+    }
+
+    public function addSubscription($list_id)
+    {
+        $this->subscriptions[] = $list_id;
+    }
+
+    public function setSubscriptions(array $list_ids)
+    {
+        foreach($list_ids as $list_id)
+        {
+            $this->addSubscription($list_id);
+        }
+    }
 
     public function __get($what)
     {
