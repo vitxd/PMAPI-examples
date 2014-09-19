@@ -419,6 +419,7 @@ class PMAPISubscriber
 
     public function setSubscriptions(array $list_ids)
     {
+        $this->subscriptions = array();
         foreach($list_ids as $list_id)
         {
             $this->addSubscription($list_id);
