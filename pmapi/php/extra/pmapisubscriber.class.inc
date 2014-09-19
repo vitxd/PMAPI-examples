@@ -142,32 +142,32 @@ class PMAPISubscriber
             throw new PMAPISubscriberNotSavedException();
         }
 
-    if(in_array($listId, $this->getSubscriptions()))
-    {
-        // Get the subscription id
-        $response = $this->makeGetRequest('subscription', array(
-            'subscriber_id' => $this->id,
-            'list_id'       => $listId
-        ));
-
-        $subscriptionId = $response->data[0]['id'];
-
-        $response = $this->request->subscription->delete(array(
-            'id' => $subscriptionId
-        ));
-
-        if ($response->isError)
+        if(in_array($listId, $this->getSubscriptions()))
         {
-            throw new PMAPISubscriberUnableToDeleteListException($response->error);
-        }
+            // Get the subscription id
+            $response = $this->makeGetRequest('subscription', array(
+                'subscriber_id' => $this->id,
+                'list_id'       => $listId
+            ));
 
-        $lists = array();
-        foreach($this->getSubscriptions() as $list_id)
-        {
-            if($list_id != $listId) $lists[] = $list_id;
+            $subscriptionId = $response->data[0]['id'];
+
+            $response = $this->request->subscription->delete(array(
+                'id' => $subscriptionId
+            ));
+
+            if ($response->isError)
+            {
+                throw new PMAPISubscriberUnableToDeleteListException($response->error);
+            }
+
+            $lists = array();
+            foreach($this->getSubscriptions() as $list_id)
+            {
+                if($list_id != $listId) $lists[] = $list_id;
+            }
+            $this->setSubscriptions($lists);
         }
-        $this->setSubscriptions($lists);
-    }
 
         return true;
     }
@@ -381,6 +381,15 @@ class PMAPISubscriber
             }
         }
 
+        return true;
+    }
+
+    public function delete()
+    {
+        if(!$this->id) return false;
+        $response = $this->request->subscriber->delete(array(
+            'id' => $this->id
+        ));
         return true;
     }
 
